@@ -32,5 +32,4 @@ class WhatsAppTest {
 		assertEquals(expectedMessages, alice.getMessages());
 		assertEquals(expectedMessages, bob.getMessages());
 	}
-
 }
