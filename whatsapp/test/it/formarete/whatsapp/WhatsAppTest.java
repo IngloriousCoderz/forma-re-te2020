@@ -2,12 +2,12 @@ package it.formarete.whatsapp;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
 class WhatsAppTest {
-
 	@Test
 	void test() {
 		// given
@@ -19,8 +19,10 @@ class WhatsAppTest {
 		server.register(alice);
 		server.register(bob);
 
-		List<String> expectedMessages = List.of("[Alice]: Hello world!", "[Bob]: Hey, how are you?",
-				"[Alice]: I'm good, thank you!");
+		List<String> expectedMessages = new ArrayList<>();
+		expectedMessages.add("[Alice]: Hello world!");
+		expectedMessages.add("[Bob]: Hey, how are you?");
+		expectedMessages.add("[Alice]: I'm good, thank you!");
 
 		// when
 		alice.send("Hello world!");

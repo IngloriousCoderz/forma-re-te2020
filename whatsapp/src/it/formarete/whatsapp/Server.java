@@ -4,21 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server {
-	private List<String> messages;
 	private List<App> apps;
+	private List<String> messages;
 
 	public Server() {
-		messages = new ArrayList<>();
 		apps = new ArrayList<>();
-	}
-
-	public List<String> getMessages() {
-		return messages;
-	}
-
-	public void receive(String newMessage) {
-		messages.add(newMessage);
-		push(newMessage);
+		messages = new ArrayList<>();
 	}
 
 	public void register(App app) {
@@ -26,9 +17,18 @@ public class Server {
 		app.setServer(this);
 	}
 
-	public void push(String newMessage) {
+	public void receive(String message) {
+		messages.add(message);
+		push(message);
+	}
+
+	public void push(String message) {
 		for (App app : apps) {
-			app.receive(newMessage);
+			app.receive(message);
 		}
+	}
+
+	public List<String> getMessages() {
+		return messages;
 	}
 }

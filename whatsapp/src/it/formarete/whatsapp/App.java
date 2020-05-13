@@ -5,16 +5,12 @@ import java.util.List;
 
 public class App {
 	private String sender;
-	public List<String> messages;
+	private List<String> messages;
 	private Server server;
 
 	public App(String sender) {
 		this.sender = sender;
 		messages = new ArrayList<>();
-	}
-
-	public List<String> getMessages() {
-		return messages;
 	}
 
 	public void setServer(Server server) {
@@ -25,7 +21,11 @@ public class App {
 		server.receive("[" + sender + "]: " + message);
 	}
 
-	public void receive(String newMessage) {
-		messages.add(newMessage);
+	public void receive(String message) {
+		messages.add(message);
+	}
+
+	public List<String> getMessages() {
+		return messages;
 	}
 }
