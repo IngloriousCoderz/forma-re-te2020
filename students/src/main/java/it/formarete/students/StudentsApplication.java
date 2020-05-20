@@ -1,13 +1,13 @@
-package it.formarete.apiserver;
+package it.formarete.students;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ApiserverApplication {
+public class StudentsApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ApiserverApplication.class, args);
+		SpringApplication.run(StudentsApplication.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package it.formarete.apiserver.presentation;
+package it.formarete.students.presentation;
 
 import java.util.List;
 
@@ -15,62 +15,62 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import it.formarete.apiserver.model.Todo;
-import it.formarete.apiserver.services.TodoRepository;
+import it.formarete.students.model.Student;
+import it.formarete.students.service.StudentRepository;
 
 @RestController
-@RequestMapping("/todos")
-public class TodosController {
+@RequestMapping("/students")
+public class StudentController {
 	@Autowired
-	private TodoRepository db;
+	private StudentRepository db;
 
 	@GetMapping
-	public List<Todo> all() {
+	public List<Student> all() {
 		return db.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Todo get(@PathVariable int id) {
-		Todo todo = db.findById(id);
-		if (todo == null) {
+	public Student get(@PathVariable int id) {
+		Student student = db.findById(id);
+		if (student == null) {
 			throw new NotFoundException();
 		}
-		return todo;
+		return student;
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Todo add(@RequestBody Todo body) {
+	public Student add(@RequestBody Student body) {
 		return db.save(body);
 	}
 
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void replace(@PathVariable int id, @RequestBody Todo body) {
-		Todo todo = get(id);
-		body.setId(todo.getId());
+	public void replace(@PathVariable int id, @RequestBody Student body) {
+		Student student = get(id);
+		body.setId(student.getId());
 		db.save(body);
 	}
 
 	@PatchMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void merge(@PathVariable int id, @RequestBody Todo body) {
-		Todo todo = get(id);
-		String text = body.getText();
-		if (text != null) {
-			todo.setText(text);
+	public void merge(@PathVariable int id, @RequestBody Student body) {
+		Student student = get(id);
+		String firstName = body.getFirstName();
+		if (firstName != null) {
+			student.setFirstName(firstName);
 		}
-		Boolean done = body.getDone();
-		if (done != null) {
-			todo.setDone(done);
+		String lastName = body.getLastName();
+		if (lastName != null) {
+			student.setLastName(lastName);
 		}
-		db.save(todo);
+		db.save(student);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remove(@PathVariable int id) {
-		Todo todo = get(id);
-		db.delete(todo);
+		Student student = get(id);
+		db.delete(student);
 	}
 }

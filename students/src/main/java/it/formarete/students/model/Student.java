@@ -1,4 +1,4 @@
-package it.formarete.apiserver.model;
+package it.formarete.students.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,10 +9,10 @@ import lombok.Data;
 
 @Data
 @Entity
-public class Todo {
+public class Student {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String text;
-	private Boolean done;
+	private String firstName;
+	private String lastName;
 }

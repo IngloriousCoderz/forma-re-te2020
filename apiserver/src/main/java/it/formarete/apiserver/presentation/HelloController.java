@@ -11,6 +11,5 @@ public class HelloController {
 	public String hello(@RequestParam(name = "who", defaultValue = "world") String who, Model model) {
 		model.addAttribute("name", who);
 		return "hello";
-
 	}
 }

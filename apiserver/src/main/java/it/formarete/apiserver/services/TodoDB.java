@@ -10,11 +10,12 @@ import org.springframework.stereotype.Repository;
 import it.formarete.apiserver.model.Todo;
 
 @Repository
-public class TodosDB {
-	private final Map<Integer, Todo> todos;
+public class TodoDB {
 	private static int id = 1;
 
-	public TodosDB() {
+	private Map<Integer, Todo> todos;
+
+	public TodoDB() {
 		todos = new HashMap<>();
 		add("Learn Java", true);
 		add("Seek for a job", false);
@@ -25,15 +26,15 @@ public class TodosDB {
 		return new ArrayList<>(todos.values());
 	}
 
-	public Todo findById(int id) {
+	public Todo findById(Integer id) {
 		return todos.get(id);
 	}
 
-	private Todo add(String text, Boolean done) {
+	public void add(String text, Boolean done) {
 		Todo todo = new Todo();
 		todo.setText(text);
 		todo.setDone(done);
-		return save(todo);
+		save(todo);
 	}
 
 	public Todo save(Todo todo) {
@@ -42,9 +43,8 @@ public class TodosDB {
 			todo.setId(id);
 			id++;
 		}
-
 		todos.put(todo.getId(), todo);
-		return todos.get(todo.getId());
+		return todo;
 	}
 
 	public void delete(Todo todo) {

@@ -1,4 +1,4 @@
-package it.formarete.apiserver.presentation;
+package it.formarete.students.presentation;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
