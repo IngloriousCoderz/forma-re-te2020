@@ -1,23 +1,18 @@
 package it.formarete.apiserver.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
 @Data
 @Entity
-public class Todo {
+public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String text;
-	private Boolean done;
-
-	@ManyToOne(cascade = CascadeType.ALL)
-	private User author;
+	private String username;
+	private String password;
 }

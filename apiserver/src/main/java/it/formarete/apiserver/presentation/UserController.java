@@ -21,70 +21,66 @@ import it.formarete.apiserver.services.TodoRepository;
 import it.formarete.apiserver.services.UserRepository;
 
 @RestController
-@RequestMapping("/todos")
-public class TodosController {
-	@Autowired
-	private TodoRepository todos;
+@RequestMapping("/users")
+public class UserController {
 	@Autowired
 	private UserRepository users;
+	@Autowired
+	private TodoRepository todos;
 
 	@GetMapping
-	public List<Todo> all() {
-		return todos.findAll();
+	public List<User> all() {
+		return users.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public Todo get(@PathVariable int id) {
-		Todo todo = todos.findById(id);
-		if (todo == null) {
+	public User get(@PathVariable int id) {
+		User user = users.findById(id);
+		if (user == null) {
 			throw new NotFoundException();
 		}
-		return todo;
+		return user;
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Todo add(@RequestBody Todo body) {
-		User author = body.getAuthor();
-		if (author != null) {
-			Integer id = author.getId();
-			String username = author.getUsername();
-			if (id != null) {
-				body.setAuthor(users.findById(id).get());
-			} else if (username != null) {
-				body.setAuthor(users.findByUsername(username));
-			}
-		}
-		return todos.save(body);
+	public User add(@RequestBody User body) {
+		return users.save(body);
 	}
 
 	@PutMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void replace(@PathVariable int id, @RequestBody Todo body) {
-		Todo todo = get(id);
-		body.setId(todo.getId());
-		todos.save(body);
+	public void replace(@PathVariable int id, @RequestBody User body) {
+		User user = get(id);
+		body.setId(user.getId());
+		users.save(body);
 	}
 
 	@PatchMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void merge(@PathVariable int id, @RequestBody Todo body) {
-		Todo todo = get(id);
-		String text = body.getText();
-		if (text != null) {
-			todo.setText(text);
+	public void merge(@PathVariable int id, @RequestBody User body) {
+		User user = get(id);
+		String username = body.getUsername();
+		if (username != null) {
+			user.setUsername(username);
 		}
-		Boolean done = body.getDone();
-		if (done != null) {
-			todo.setDone(done);
+		String password = body.getPassword();
+		if (password != null) {
+			user.setPassword(password);
 		}
-		todos.save(todo);
+		users.save(user);
 	}
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remove(@PathVariable int id) {
-		Todo todo = get(id);
-		todos.delete(todo);
+		User user = get(id);
+		users.delete(user);
+	}
+
+	@GetMapping("/{id}/todos")
+	public List<Todo> getTodos(@PathVariable int id) {
+		User user = get(id);
+		return todos.findByAuthor(user);
 	}
 }
