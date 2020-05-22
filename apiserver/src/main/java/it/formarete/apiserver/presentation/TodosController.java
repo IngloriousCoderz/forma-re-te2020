@@ -50,7 +50,7 @@ public class TodosController {
 			Integer id = author.getId();
 			String username = author.getUsername();
 			if (id != null) {
-				body.setAuthor(users.findById(id).get());
+				body.setAuthor(users.findById((int) id));
 			} else if (username != null) {
 				body.setAuthor(users.findByUsername(username));
 			}
