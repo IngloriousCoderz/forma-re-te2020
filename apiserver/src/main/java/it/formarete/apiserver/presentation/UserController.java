@@ -42,6 +42,12 @@ public class UserController {
 		return user;
 	}
 
+	@GetMapping("/{id}/todos")
+	public List<Todo> getTodos(@PathVariable int id) {
+		User user = get(id);
+		return todos.findByAuthor(user);
+	}
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public User add(@RequestBody User body) {
@@ -60,13 +66,13 @@ public class UserController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void merge(@PathVariable int id, @RequestBody User body) {
 		User user = get(id);
-		String username = body.getUsername();
-		if (username != null) {
-			user.setUsername(username);
+		String firstName = body.getUsername();
+		if (firstName != null) {
+			user.setUsername(firstName);
 		}
-		String password = body.getPassword();
-		if (password != null) {
-			user.setPassword(password);
+		String lastName = body.getPassword();
+		if (lastName != null) {
+			user.setPassword(lastName);
 		}
 		users.save(user);
 	}
@@ -76,11 +82,5 @@ public class UserController {
 	public void remove(@PathVariable int id) {
 		User user = get(id);
 		users.delete(user);
-	}
-
-	@GetMapping("/{id}/todos")
-	public List<Todo> getTodos(@PathVariable int id) {
-		User user = get(id);
-		return todos.findByAuthor(user);
 	}
 }

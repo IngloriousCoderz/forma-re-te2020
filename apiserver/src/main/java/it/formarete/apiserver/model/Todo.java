@@ -1,6 +1,5 @@
 package it.formarete.apiserver.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,6 +17,6 @@ public class Todo {
 	private String text;
 	private Boolean done;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	private User author;
 }

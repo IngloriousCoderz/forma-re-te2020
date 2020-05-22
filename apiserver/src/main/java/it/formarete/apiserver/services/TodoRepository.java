@@ -9,8 +9,8 @@ import it.formarete.apiserver.model.User;
 
 public interface TodoRepository extends CrudRepository<Todo, Integer> {
 	List<Todo> findAll();
-
+	
 	Todo findById(int id);
-
+	
 	List<Todo> findByAuthor(User author);
 }

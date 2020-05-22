@@ -12,12 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import it.formarete.apiserver.model.Todo;
 import it.formarete.apiserver.presentation.NotFoundException;
-import it.formarete.apiserver.presentation.TodosController;
+import it.formarete.apiserver.presentation.TodoController;
 
 @SpringBootTest
 class TodosControllerTest {
 	@Autowired
-	private TodosController controller;
+	private TodoController controller;
 
 	@Test
 	void shouldPerformCrudOperations() {

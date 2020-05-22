@@ -22,7 +22,7 @@ import it.formarete.apiserver.services.UserRepository;
 
 @RestController
 @RequestMapping("/todos")
-public class TodosController {
+public class TodoController {
 	@Autowired
 	private TodoRepository todos;
 	@Autowired
